@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .calculator {
+            background-color: #fff;
+            border-radius: 10px;
+            border: 2px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px; /* Reduced padding for smaller screens */
+            width: 80%; /* Adjusted for responsiveness */
+            max-width: 300px; /* Maximum width for larger screens */
+            text-align: center;
+        }
+
+        .calculator input[type="text"], .calculator button {
+            width: 40px; /* Adjusted button width for smaller screens */
+            height: 40px; /* Adjusted button height for smaller screens */
+            margin: 3px; /* Reduced margin for smaller screens */
+            font-size: 16px; /* Reduced font size for smaller screens */
+            border: none;
+            outline: none;
+            border-radius: 5px;
+        }
+
+        .calculator input[type="text"] {
+            width: calc(100% - 10px);
+            padding: 5px; /* Reduced padding for smaller screens */
+            font-size: 20px; /* Reduced font size for smaller screens */
+            margin-bottom: 10px; /* Reduced margin for smaller screens */
+            border: 2px solid #ccc;
+        }
+
+        .calculator button {
+            background-color: #4CAF50; /* Green color */
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .calculator button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="result" oninput="calculate()">
+        <div class="row">
+            <button onclick="appendToResult('1')">1</button>
+            <button onclick="appendToResult('2')">2</button>
+            <button onclick="appendToResult('3')">3</button>
+            <button onclick="appendToResult('+')">+</button>
+            <button onclick="appendToResult('-')">-</button>
+        </div>
+        <div class="row">
+            <button onclick="appendToResult('4')">4</button>
+            <button onclick="appendToResult('5')">5</button>
+            <button onclick="appendToResult('6')">6</button>
+            <button onclick="appendToResult('*')">*</button>
+            <button onclick="appendToResult('/')">/</button>
+        </div>
+        <div class="row">
+            <button onclick="appendToResult('7')">7</button>
+            <button onclick="appendToResult('8')">8</button>
+            <button onclick="appendToResult('9')">9</button>
+            <button onclick="appendToResult('Math.sin(')">sin</button>
+            <button onclick="appendToResult('Math.cos(')">cos</button>
+        </div>
+        <div class="row">
+            <button onclick="appendToResult('Math.tan(')">tan</button>
+            <button onclick="appendToResult('Math.log10(')">log</button>
+            <button onclick="appendToResult('Math.exp(')">exp</button>
+            <button onclick="appendToResult('(')">(</button>
+            <button onclick="appendToResult(')')">)</button>
+        </div>
+        <div class="row">
+            <button onclick="appendToResult('Math.pow(')">x^y</button>
+            <button onclick="appendToResult('Math.sqrt(')">√</button>
+            <button onclick="appendToResult('Math.PI')">π</button>
+            <button onclick="clearResult()">C</button>
+            <button onclick="backspace()">←</button>
+        </div>
+        <div class="row">
+            <button onclick="calculate()">=</button>
+            <button onclick="appendToResult('%')">%</button>
+            <button onclick="appendToResult('Math.E')">e</button>
+            <button onclick="appendToResult('Math.pow(')">x^</button>
+            <button onclick="appendToResult('Math.pow(')">10^</button>
+        </div>
+    </div>
+
+    <script>
+        function appendToResult(value) {
+            document.getElementById('result').value += value;
+        }
+
+        function clearResult() {
+            document.getElementById('result').value = '';
+        }
+
+        function calculate() {
+            try {
+                var result = eval(document.getElementById('result').value);
+                if (!isNaN(result)) {
+                    document.getElementById('result').value = result;
+                } else {
+                    document.getElementById('result').value = 'Error';
+                }
+            } catch (error) {
+                document.getElementById('result').value = 'Error';
+            }
+        }
+
+        function backspace() {
+            var result = document.getElementById('result').value;
+            document.getElementById('result').value = result.substring(0, result.length - 1);
+        }
+    </script>
+</body>
+</html>
